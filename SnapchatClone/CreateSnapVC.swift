@@ -67,7 +67,11 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
             }
             else
             {
-               
+               self.nextButton.isEnabled = true
+               self.nextButton.setTitle("Next", for: .normal)
+               self.showPicture.image = nil
+               self.showPicture.backgroundColor = UIColor.lightGray
+                
                self.performSegue(withIdentifier: "SelectUserSegue", sender: nil)
                print("\n\n#Succesfully uploaded the image on Firebase.\n")
             }
@@ -106,15 +110,11 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
         return true
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-
-    }
-    
     override func viewWillAppear(_ animated: Bool)
     {
         self.nextButton.titleLabel?.text = "Next"
         self.nextButton.isEnabled = true
+        
     }
 
 }

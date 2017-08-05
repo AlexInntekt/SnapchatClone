@@ -17,6 +17,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+
     
     override func viewDidLoad()
     {
@@ -25,12 +26,14 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
+        
+        
     }
 
     @IBOutlet weak var turnOnButton: UIButton!
     @IBAction func turnOnButton(_ sender: Any)
     {
-        var authenticationSuccess = true
+        
         
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
             
@@ -38,7 +41,6 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
             if error != nil
               {
                 print("\n\n! Error found while trying to sign in with Firebase. Code's Author's Error code: 3qt45yhq45 \n\n")
-                authenticationSuccess = false
                 
                 Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!, completion: { (user, error) in
                     print("\n\n # Trying to create a new user...\n")
@@ -46,12 +48,17 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                     if error != nil
                       {
                         print("\n\n! Error found while trying to create an user with Firebase. Author's Error code: 3463gdh \n\n")
-                        authenticationSuccess = false
                       }
                     else
                       {
+                        //adding created user's info in the database:
+                        let users = Database.database().reference().child("Users")
+                        users.child(user!.uid).setValue(user!.email!)
+                        
                         print("\n\n #Succesfully created an user with Firebase \n")
-                        authenticationSuccess = true
+                        
+                        print("\n#Calling segue 'signInSegue'\n")
+                        self.performSegue(withIdentifier: "signInSegue", sender: nil)
                       }
                 })
                 
@@ -59,13 +66,10 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
             else
               {
                 print("\n\n #Succesfully signed in with Firebase \n")
-                authenticationSuccess = true
-              }
-            
-            if(authenticationSuccess)
-            {
+                
+                print("\n#Calling segue 'signInSegue'\n")
                 self.performSegue(withIdentifier: "signInSegue", sender: nil)
-            }
+              }
 
     }
     
@@ -87,6 +91,12 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
     {
         self.view.endEditing(true)
         return true
+    }
+    
+    //add user tot he database:
+    func addToDatabase()
+    {
+        
     }
 
 
