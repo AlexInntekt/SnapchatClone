@@ -51,19 +51,26 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
     @IBOutlet weak var nextButton: UIButton!
     @IBAction func nextButton(_ sender: Any)
     {
+        let currentImageUID = "\(NSUUID().uuidString).jpg"
+        
+        let snap = Snap()
+        snap.imageID = currentImageUID
+        snap.description = titleTextField.text!
+        
         nextButton.isEnabled = false
         self.nextButton.setTitle("Uploading image...", for: .normal)
         
         let imagesFolder = Storage.storage().reference().child("images")
         
-        let ImadeData = UIImageJPEGRepresentation(showPicture.image!, 0.3)!
+        let ImadeData = UIImageJPEGRepresentation(showPicture.image!, 0.1)!
         print("\n\n#Trying to upload image on the database Firebase \n")
         
 
-        imagesFolder.child("\(NSUUID().uuidString).jpg").putData(ImadeData, metadata: nil, completion: {(metadata,error) in
+        imagesFolder.child(currentImageUID).putData(ImadeData, metadata: nil, completion: {(metadata,error) in
             if error != nil
             {
                 print("\n\n! Error code f304hg93hg9 \n\n")
+                
             }
             else
             {
@@ -72,8 +79,14 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
                self.showPicture.image = nil
                self.showPicture.backgroundColor = UIColor.lightGray
                 
-               self.performSegue(withIdentifier: "SelectUserSegue", sender: nil)
                print("\n\n#Succesfully uploaded the image on Firebase.\n")
+                
+               snap.imageURL = (metadata?.downloadURL()?.absoluteString)!
+               print("\n\n#The data's URL on the server is: ",snap.imageURL)
+                
+               self.performSegue(withIdentifier: "SelectUserSegue", sender: snap)
+               
+                
             }
         })
         
@@ -117,6 +130,12 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
         
     }
 
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        let nextVC = segue.destination as! SelectUserVC
+        nextVC.specificSnap = sender as! Snap
+    }
 }
 
 

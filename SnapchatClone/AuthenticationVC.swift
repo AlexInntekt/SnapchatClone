@@ -53,11 +53,27 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                       {
                         //adding created user's info in the database:
                         let users = Database.database().reference().child("Users")
-                        users.child(user!.uid).setValue(user!.email!)
+                        users.child(user!.uid).child("email").setValue(user!.email!)
                         
                         print("\n\n #Succesfully created an user with Firebase \n")
                         
                         print("\n#Calling segue 'signInSegue'\n")
+                        
+                        Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (user, error) in
+                            
+                            print("\n\n # Trying to sign in with the new created account...\n")
+                            
+                            if error != nil
+                            {
+                                print("\n\n! Error found while trying to sign in with Firebase with the new created account. Code's Author's Error code: mipx25g \n\n")
+                            }
+                            else
+                            {
+                                print("\n\n #Succesfully signed in with the new user created recently \n")
+                            }
+                            
+                        }
+                        
                         self.performSegue(withIdentifier: "signInSegue", sender: nil)
                       }
                 })

@@ -12,14 +12,20 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 
-class SnapsVC: UIViewController
+class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
+    var currentSnaps = [Snap]()
+   
+    @IBOutlet weak var snapsTableView: UITableView!
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        snapsTableView.dataSource = self
+        snapsTableView.delegate = self
+        
+
     }
 
 
@@ -46,6 +52,33 @@ class SnapsVC: UIViewController
     override var prefersStatusBarHidden: Bool
     {
         return true
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return currentSnaps.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let cell = UITableViewCell()
+        
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        performSegue(withIdentifier: "showSnapSegue", sender: currentSnaps[indexPath.row])
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if(segue.identifier=="showSnapSegue")
+        {
+            let nextVC = ShowSnapVC()
+            nextVC.specificSnap = sender as! Snap
+        }
     }
 
   
