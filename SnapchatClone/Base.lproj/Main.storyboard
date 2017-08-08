@@ -122,13 +122,13 @@
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Eey-oi-AQh">
                             <connections>
                                 <action selector="addSnap:" destination="RSE-Wj-KL1" id="lgV-Cf-S0S"/>
-                                <segue destination="Prc-jm-uCr" kind="show" id="MWh-4N-4Gx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="snapsTableView" destination="PkV-OW-Jhb" id="cU6-F7-IUZ"/>
-                        <segue destination="WVK-vm-pf8" kind="presentation" identifier="showSnapSegue" id="qGi-My-H3P"/>
+                        <segue destination="WVK-vm-pf8" kind="push" identifier="showSnapSegue" id="qGi-My-H3P"/>
+                        <segue destination="Prc-jm-uCr" kind="show" identifier="addButtonSegue" id="Rw9-tW-Ql0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I6I-yc-kEe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -147,20 +147,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S1S-RW-kcS">
-                                <rect key="frame" x="16" y="20" width="343" height="647"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S1S-RW-kcS">
+                                <rect key="frame" x="36" y="114" width="303" height="533"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufD-f8-fn5">
+                                <rect key="frame" x="35.5" y="66.5" width="303" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="hWo-Ug-Fkh" firstAttribute="top" secondItem="S1S-RW-kcS" secondAttribute="bottom" id="J5s-nT-1Fa"/>
-                            <constraint firstItem="S1S-RW-kcS" firstAttribute="top" secondItem="ZaM-GI-SC2" secondAttribute="bottom" id="LYr-r2-90h"/>
-                            <constraint firstItem="S1S-RW-kcS" firstAttribute="leading" secondItem="LoC-r3-zyZ" secondAttribute="leadingMargin" id="YDA-dQ-VeJ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="S1S-RW-kcS" secondAttribute="trailing" id="fJ2-Qg-YlQ"/>
+                            <constraint firstItem="ufD-f8-fn5" firstAttribute="width" secondItem="S1S-RW-kcS" secondAttribute="width" id="HvP-wr-Mhu"/>
+                            <constraint firstItem="hWo-Ug-Fkh" firstAttribute="top" secondItem="S1S-RW-kcS" secondAttribute="bottom" constant="20" id="J5s-nT-1Fa"/>
+                            <constraint firstItem="S1S-RW-kcS" firstAttribute="top" secondItem="ZaM-GI-SC2" secondAttribute="bottom" constant="50" id="LYr-r2-90h"/>
+                            <constraint firstItem="S1S-RW-kcS" firstAttribute="leading" secondItem="LoC-r3-zyZ" secondAttribute="leadingMargin" constant="20" id="YDA-dQ-VeJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="S1S-RW-kcS" secondAttribute="trailing" constant="20" id="fJ2-Qg-YlQ"/>
+                            <constraint firstItem="ufD-f8-fn5" firstAttribute="centerX" secondItem="S1S-RW-kcS" secondAttribute="centerX" id="rdK-mJ-f5L"/>
+                            <constraint firstItem="S1S-RW-kcS" firstAttribute="top" secondItem="ufD-f8-fn5" secondAttribute="bottom" constant="21" id="wvp-JE-KUi"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="IIe-oU-z0t"/>
                     <connections>
                         <outlet property="snapImage" destination="S1S-RW-kcS" id="9I9-zj-FLy"/>
+                        <outlet property="snapTitle" destination="ufD-f8-fn5" id="ig2-2j-4Zp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="84j-9S-QIQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
