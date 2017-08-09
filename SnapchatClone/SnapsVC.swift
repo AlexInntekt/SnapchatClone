@@ -34,16 +34,33 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             fetchedSnap.from = snap.childSnapshot(forPath: "from").value as! String
             fetchedSnap.imageURL = snap.childSnapshot(forPath: "imageURL").value as! String
             fetchedSnap.description = snap.childSnapshot(forPath: "description").value as! String
+            fetchedSnap.key = snap.key
             
             self.currentSnaps.append(fetchedSnap)
             self.snapsTableView.reloadData()
-            
         })
+        
+        
+        Database.database().reference().child("Users").child(currentUid!).child("snaps").observe(DataEventType.childRemoved, with: {(snaphot) in print()
+            
 
-
+            var index = 0
+            for snap in self.currentSnaps {
+                if snap.key == snaphot.key {
+                    self.currentSnaps.remove(at: index)
+                }
+                index += 1
+            }
+            
+            self.snapsTableView.reloadData()
+        })
 
     }
 
+    override func viewWillAppear(_ animated: Bool)
+    {
+
+    }
 
     @IBAction func logOutButton(_ sender: Any)
     {

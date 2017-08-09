@@ -15,7 +15,7 @@ class Snap
     var from = String()
     var imageID = String()
     var imageURL = String()
-
+    var key = String()
     
 
 

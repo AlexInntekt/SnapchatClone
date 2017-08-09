@@ -74,12 +74,13 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
             }
             else
             {
+               print("\n\n#Succesfully uploaded the image on Firebase.\n") 
+                
                self.nextButton.isEnabled = true
                self.nextButton.setTitle("Next", for: .normal)
                self.showPicture.image = nil
                self.showPicture.backgroundColor = UIColor.lightGray
                 
-               print("\n\n#Succesfully uploaded the image on Firebase.\n")
                 
                snap.imageURL = (metadata?.downloadURL()?.absoluteString)!
                print("\n\n#The data's URL on the server is: ",snap.imageURL)

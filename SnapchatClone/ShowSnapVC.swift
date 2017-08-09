@@ -40,16 +40,15 @@ class ShowSnapVC: UIViewController
         }
         
         snapTitle.text = specificSnap.description
-
-
-    }
-
-    override func didReceiveMemoryWarning()
-    {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        print("\n#The user saw the snap. Now it is supposed to get deleted")
+        
+        Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).child("snaps").child(specificSnap.key).removeValue()
+    }
+
 
 
 }

@@ -40,6 +40,7 @@ class SelectUserVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         //user.email = snapshot.value(forKey: "email") as! String    //  this line does not work anymore with these versions, in the case that a parent has more then one child.
         user.uid = snapshot.key
             
+            
         print("\n\nFetching from Firebase the user with \n",user.email,"\n")
             
         self.users.append(user)
