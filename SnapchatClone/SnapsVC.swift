@@ -35,6 +35,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             fetchedSnap.imageURL = snap.childSnapshot(forPath: "imageURL").value as! String
             fetchedSnap.description = snap.childSnapshot(forPath: "description").value as! String
             fetchedSnap.key = snap.key
+            fetchedSnap.imageID = snap.childSnapshot(forPath: "imageID").value as! String
             
             self.currentSnaps.append(fetchedSnap)
             self.snapsTableView.reloadData()

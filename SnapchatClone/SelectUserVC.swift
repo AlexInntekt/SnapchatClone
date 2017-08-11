@@ -48,8 +48,8 @@ class SelectUserVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         self.usersTableView.reloadData()
             
         })
-        
     }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
@@ -76,6 +76,22 @@ class SelectUserVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         let snap = ["from": currentUserEmail, "description": specificSnap.description, "imageID": specificSnap.imageID, "imageURL": specificSnap.imageURL]
         
         Database.database().reference().child("Users").child(user.uid).child("snaps").childByAutoId().setValue(snap)
+        
+        popOutMessage()
+    }
+
+
+    func popOutMessage()
+    {
+        let alert = UIAlertController(title: "All good", message: "The snap has been sent to your friend!", preferredStyle: .actionSheet)
+        
+        let action = UIAlertAction(title: "Alright", style: .default, handler: {(action) in
+            self.performSegue(withIdentifier: "getBackSegue", sender: nil)
+        })
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
     }
 
 

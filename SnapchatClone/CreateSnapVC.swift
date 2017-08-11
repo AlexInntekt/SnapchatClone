@@ -20,6 +20,8 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
     
     @IBOutlet weak var titleTextField: UITextField!
     
+    @IBOutlet weak var labelOne: UILabel!
+    
     var imagePicker = UIImagePickerController()
 
     override func viewDidLoad()
@@ -27,7 +29,25 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
         super.viewDidLoad()
 
         titleTextField.delegate = self
+        
         imagePicker.delegate = self
+        
+        
+        self.nextButton.titleLabel?.text = "Next"
+        self.nextButton.setTitleColor(UIColor.lightGray, for: .normal)
+        self.nextButton.isEnabled = false
+        
+        
+        titleTextField.backgroundColor = .clear
+        /*
+        let border = CALayer()
+        let width = CGFloat(2.0)
+        border.borderColor = UIColor.darkGray.cgColor
+        border.frame = CGRect(x: 0, y: titleTextField.frame.size.height - width, width:  titleTextField.frame.size.width, height: titleTextField.frame.size.height)
+        border.borderWidth = width
+        titleTextField.layer.addSublayer(border)
+        titleTextField.layer.masksToBounds = true
+        */
     }
     
 
@@ -51,6 +71,8 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
     @IBOutlet weak var nextButton: UIButton!
     @IBAction func nextButton(_ sender: Any)
     {
+        view.endEditing(true)
+        
         let currentImageUID = "\(NSUUID().uuidString).jpg"
         
         let snap = Snap()
@@ -58,11 +80,12 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
         snap.description = titleTextField.text!
         
         nextButton.isEnabled = false
-        self.nextButton.setTitle("Uploading image...", for: .normal)
+        self.labelOne.text = "Uploading image..."
+        self.nextButton.setTitleColor(UIColor.lightGray, for: .normal)
         
         let imagesFolder = Storage.storage().reference().child("images")
         
-        let ImadeData = UIImageJPEGRepresentation(showPicture.image!, 0.1)!
+        let ImadeData = UIImageJPEGRepresentation(showPicture.image!, 0.3)!
         print("\n\n#Trying to upload image on the database Firebase \n")
         
 
@@ -77,6 +100,7 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
                print("\n\n#Succesfully uploaded the image on Firebase.\n") 
                 
                self.nextButton.isEnabled = true
+               self.nextButton.setTitleColor(UIColor.blue, for: .normal)
                self.nextButton.setTitle("Next", for: .normal)
                self.showPicture.image = nil
                self.showPicture.backgroundColor = UIColor.lightGray
@@ -105,7 +129,8 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
          //once the picture is taken, make the background transparent:
          showPicture.backgroundColor = UIColor.clear
         
-        
+         nextButton.isEnabled = true
+         nextButton.setTitleColor(UIColor.blue, for: .normal)
         
     }
     
@@ -126,9 +151,7 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
 
     override func viewWillAppear(_ animated: Bool)
     {
-        self.nextButton.titleLabel?.text = "Next"
-        self.nextButton.isEnabled = true
-        
+        labelOne.text = ""
     }
 
     

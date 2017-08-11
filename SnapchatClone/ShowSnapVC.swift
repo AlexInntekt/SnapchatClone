@@ -40,14 +40,42 @@ class ShowSnapVC: UIViewController
         }
         
         snapTitle.text = specificSnap.description
+        
+        
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+
     }
     
     override func viewWillDisappear(_ animated: Bool)
     {
+        
+        removeSnapFromEverywhere()
+    }
+    
+    
+    func removeSnapFromEverywhere()
+    {
         print("\n#The user saw the snap. Now it is supposed to get deleted")
         
+        
+        let imageUIDthatWeDelete = specificSnap.imageID
+        
+        print("\n\n\n#$% ", specificSnap.imageID ,"\n")
+        
+        Storage.storage().reference().child("images").child("\(imageUIDthatWeDelete)").delete { (error) in
+            print(error)
+        }
+        
         Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).child("snaps").child(specificSnap.key).removeValue()
+
     }
+    
+    
+
 
 
 
