@@ -163,11 +163,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S1S-RW-kcS">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S1S-RW-kcS">
                                 <rect key="frame" x="36" y="70" width="303" height="533"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufD-f8-fn5">
-                                <rect key="frame" x="35.5" y="30" width="303" height="26.5"/>
+                                <rect key="frame" x="35.5" y="20" width="303" height="26.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" red="0.50196081400000003" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -180,7 +180,7 @@
                             <constraint firstItem="hWo-Ug-Fkh" firstAttribute="top" secondItem="S1S-RW-kcS" secondAttribute="bottom" constant="20" id="J5s-nT-1Fa"/>
                             <constraint firstItem="S1S-RW-kcS" firstAttribute="top" secondItem="ZaM-GI-SC2" secondAttribute="bottom" constant="50" id="LYr-r2-90h"/>
                             <constraint firstItem="j6f-7j-lcg" firstAttribute="centerX" secondItem="S1S-RW-kcS" secondAttribute="centerX" id="P03-bb-7Ia"/>
-                            <constraint firstItem="ufD-f8-fn5" firstAttribute="top" secondItem="ZaM-GI-SC2" secondAttribute="bottom" multiplier="1.3" constant="4" id="Qpl-mh-eg5"/>
+                            <constraint firstItem="ufD-f8-fn5" firstAttribute="top" secondItem="ZaM-GI-SC2" secondAttribute="bottom" id="Qpl-mh-eg5"/>
                             <constraint firstItem="S1S-RW-kcS" firstAttribute="leading" secondItem="LoC-r3-zyZ" secondAttribute="leadingMargin" constant="20" id="YDA-dQ-VeJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="S1S-RW-kcS" secondAttribute="trailing" constant="20" id="fJ2-Qg-YlQ"/>
                             <constraint firstItem="j6f-7j-lcg" firstAttribute="centerY" secondItem="S1S-RW-kcS" secondAttribute="centerY" id="lQe-CD-Vks"/>
@@ -210,7 +210,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CIP-Nc-dZ8">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CIP-Nc-dZ8">
                                 <rect key="frame" x="9.5" y="73.5" width="356.5" height="267"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
@@ -231,7 +231,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0og-hR-xqd">
-                                <rect key="frame" x="56.5" y="256.5" width="262.5" height="67"/>
+                                <rect key="frame" x="56.5" y="383.5" width="262.5" height="67"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -248,7 +248,7 @@
                             <constraint firstItem="CIP-Nc-dZ8" firstAttribute="width" secondItem="Acg-TY-d03" secondAttribute="width" multiplier="0.95" id="VtX-iX-ZQh"/>
                             <constraint firstItem="a4T-OG-7n2" firstAttribute="centerX" secondItem="Acg-TY-d03" secondAttribute="centerX" multiplier="0.815" id="X0z-on-gGq"/>
                             <constraint firstItem="a4T-OG-7n2" firstAttribute="width" secondItem="CIP-Nc-dZ8" secondAttribute="width" multiplier="0.8" id="Zuw-st-Ham"/>
-                            <constraint firstItem="0og-hR-xqd" firstAttribute="centerY" secondItem="Acg-TY-d03" secondAttribute="centerY" multiplier="0.87" id="bvy-cw-Rvd"/>
+                            <constraint firstItem="0og-hR-xqd" firstAttribute="centerY" secondItem="Acg-TY-d03" secondAttribute="centerY" multiplier="1.25" id="bvy-cw-Rvd"/>
                             <constraint firstItem="CIP-Nc-dZ8" firstAttribute="centerY" secondItem="Acg-TY-d03" secondAttribute="centerY" multiplier="0.62" id="e5c-6z-oGR"/>
                             <constraint firstItem="dMj-fM-cem" firstAttribute="centerX" secondItem="Acg-TY-d03" secondAttribute="centerX" multiplier="1.8" id="p1o-Ss-rLd"/>
                             <constraint firstItem="0og-hR-xqd" firstAttribute="height" secondItem="Acg-TY-d03" secondAttribute="height" multiplier="0.1" id="tSf-Rf-EX0"/>

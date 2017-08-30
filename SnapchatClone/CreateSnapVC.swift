@@ -85,7 +85,7 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
         
         let imagesFolder = Storage.storage().reference().child("images")
         
-        let ImadeData = UIImageJPEGRepresentation(showPicture.image!, 0.3)!
+        let ImadeData = UIImageJPEGRepresentation(showPicture.image!, 0.2)!
         print("\n\n#Trying to upload image on the database Firebase \n")
         
 
