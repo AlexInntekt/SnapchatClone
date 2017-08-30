@@ -16,7 +16,7 @@ class Snap
     var imageID = String()
     var imageURL = String()
     var key = String()
-    
+    var isSeen = String()
 
 
 }

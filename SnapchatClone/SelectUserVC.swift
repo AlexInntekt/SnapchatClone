@@ -73,7 +73,7 @@ class SelectUserVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         
         let currentUserEmail = Auth.auth().currentUser?.email
         
-        let snap = ["from": currentUserEmail, "description": specificSnap.description, "imageID": specificSnap.imageID, "imageURL": specificSnap.imageURL]
+        let snap = ["from": currentUserEmail, "description": specificSnap.description, "imageID": specificSnap.imageID, "imageURL": specificSnap.imageURL, "isSeen": specificSnap.isSeen]
         
         Database.database().reference().child("Users").child(user.uid).child("snaps").childByAutoId().setValue(snap)
         

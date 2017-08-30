@@ -95,11 +95,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PkV-OW-Jhb">
-                                <rect key="frame" x="16" y="100" width="343" height="523"/>
+                                <rect key="frame" x="16" y="124" width="343" height="543"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Here are snaps that you received and did not look at so far:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEg-v7-yiL">
-                                <rect key="frame" x="16" y="52.5" width="343" height="97"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your new snaps recieved:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEg-v7-yiL">
+                                <rect key="frame" x="16" y="55.5" width="343" height="70.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" red="0.50196081400000003" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -108,16 +108,17 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1YP-Yf-Sa4" firstAttribute="top" secondItem="PkV-OW-Jhb" secondAttribute="bottom" id="0rf-Zc-oQw"/>
-                            <constraint firstItem="PkV-OW-Jhb" firstAttribute="top" secondItem="wBM-bb-jrA" secondAttribute="bottom" constant="80" id="8mm-vB-8HT"/>
+                            <constraint firstItem="PkV-OW-Jhb" firstAttribute="top" secondItem="wBM-bb-jrA" secondAttribute="bottom" constant="60" id="8mm-vB-8HT"/>
                             <constraint firstItem="MEg-v7-yiL" firstAttribute="width" secondItem="PkV-OW-Jhb" secondAttribute="width" id="JFv-Fx-Nop"/>
-                            <constraint firstItem="MEg-v7-yiL" firstAttribute="height" secondItem="PkV-OW-Jhb" secondAttribute="height" multiplier="0.185" id="Upg-Zj-CEs"/>
-                            <constraint firstItem="MEg-v7-yiL" firstAttribute="centerY" secondItem="PkV-OW-Jhb" secondAttribute="centerY" multiplier="0.28" id="bHR-cZ-wuH"/>
+                            <constraint firstItem="MEg-v7-yiL" firstAttribute="height" secondItem="PkV-OW-Jhb" secondAttribute="height" multiplier="0.13" id="Upg-Zj-CEs"/>
+                            <constraint firstItem="MEg-v7-yiL" firstAttribute="centerY" secondItem="PkV-OW-Jhb" secondAttribute="centerY" multiplier="0.23" id="bHR-cZ-wuH"/>
                             <constraint firstItem="MEg-v7-yiL" firstAttribute="centerX" secondItem="PkV-OW-Jhb" secondAttribute="centerX" id="iuN-I8-jAL"/>
                             <constraint firstItem="PkV-OW-Jhb" firstAttribute="leading" secondItem="1js-S9-ny8" secondAttribute="leadingMargin" id="vtz-Je-aHj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PkV-OW-Jhb" secondAttribute="trailing" id="wRO-KR-1y6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BLc-gd-Tkm">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" style="plain" id="qeW-cA-LSc">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="48Z-sE-Att">
                                 <rect key="frame" x="16" y="7" width="55" height="30"/>
@@ -129,6 +130,14 @@
                                 </connections>
                             </button>
                         </barButtonItem>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="12b-VM-neA">
+                            <rect key="frame" x="112.5" y="7" width="150" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="snaps"/>
+                            <connections>
+                                <action selector="chooseTypeOfSnaps:" destination="RSE-Wj-KL1" eventType="touchUpInside" id="78p-Pl-d9z"/>
+                            </connections>
+                        </button>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Eey-oi-AQh">
                             <connections>
                                 <action selector="addSnap:" destination="RSE-Wj-KL1" id="lgV-Cf-S0S"/>
@@ -136,7 +145,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="chooseTypeOfSnaps" destination="12b-VM-neA" id="FS3-fg-Cnv"/>
                         <outlet property="snapsTableView" destination="PkV-OW-Jhb" id="cU6-F7-IUZ"/>
+                        <outlet property="typeOfSnapsLabel" destination="MEg-v7-yiL" id="DqZ-tZ-NBG"/>
                         <segue destination="WVK-vm-pf8" kind="show" identifier="showSnapSegue" id="qGi-My-H3P"/>
                         <segue destination="Prc-jm-uCr" kind="show" identifier="addButtonSegue" id="Rw9-tW-Ql0"/>
                     </connections>
@@ -297,7 +308,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1WH-2M-tvp">
-                                <rect key="frame" x="0.0" y="80" width="375" height="587"/>
+                                <rect key="frame" x="0.0" y="124" width="375" height="543"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select an user to send the snap to:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="php-D6-1qv">
@@ -348,6 +359,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="qa5-nU-ExC"/>
+        <segue reference="8lE-DI-Fop"/>
     </inferredMetricsTieBreakers>
 </document>

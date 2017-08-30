@@ -39,15 +39,7 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
         
         
         titleTextField.backgroundColor = .clear
-        /*
-        let border = CALayer()
-        let width = CGFloat(2.0)
-        border.borderColor = UIColor.darkGray.cgColor
-        border.frame = CGRect(x: 0, y: titleTextField.frame.size.height - width, width:  titleTextField.frame.size.width, height: titleTextField.frame.size.height)
-        border.borderWidth = width
-        titleTextField.layer.addSublayer(border)
-        titleTextField.layer.masksToBounds = true
-        */
+
     }
     
 
@@ -78,6 +70,7 @@ class CreateSnapVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
         let snap = Snap()
         snap.imageID = currentImageUID
         snap.description = titleTextField.text!
+        snap.isSeen = "false"
         
         nextButton.isEnabled = false
         self.labelOne.text = "Uploading image..."
