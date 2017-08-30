@@ -1,3 +1,7 @@
+!!! In order to edit/access the project by code, please open it up in xCode using the file 'SnapchatClone.xcworkspace'. 
+That's because the project uses different libraries from Cocopods, especially the FireBase access.
+
+
 # SnapchatClone
 Description:
      As the name claims itself, it is a Snapchat clone. Sign up/in, take a picture, and send it to the other users that have logged in previously.
