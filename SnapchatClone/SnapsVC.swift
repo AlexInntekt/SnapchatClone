@@ -31,7 +31,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
         displayingNewSnapsOnly = true
         
-        chooseTypeOfSnaps.setTitle("Show new", for: .normal)
+        chooseTypeOfSnaps.setTitle("Show all", for: .normal)
         
         snapsTableView.dataSource = self
         snapsTableView.delegate = self
@@ -74,13 +74,14 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             self.snapsTableView.reloadData()
         })
         
-        //fetch the new snaps from the whole list and assign them to the 'newSnaps' array:
-        filterNewSnaps()
-        self.snapsTableView.reloadData()
 
     }
     
-
+    override func viewWillAppear(_ animated: Bool)
+    {
+        filterNewSnaps()
+        self.snapsTableView.reloadData()
+    }
 
     
     @IBOutlet weak var chooseTypeOfSnaps: UIButton!
@@ -154,7 +155,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     {
         let cell = UITableViewCell()
         
-        if /*are we*/ displayingNewSnapsOnly
+        if /*we are*/ displayingNewSnapsOnly
         {
             cell.textLabel?.text = "\(newSnaps[indexPath.row].from): \(newSnaps[indexPath.row].description)"
             print(" $$$ snap isSeen:", newSnaps[indexPath.row].isSeen)
@@ -173,8 +174,16 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        performSegue(withIdentifier: "showSnapSegue", sender: allSnaps[indexPath.row])
-        print("\n Trying to send by segue: ", allSnaps[indexPath.row].description)
+        if /*we are*/ displayingNewSnapsOnly
+        {
+            performSegue(withIdentifier: "showSnapSegue", sender: newSnaps[indexPath.row])
+            print("\n Trying to send by segue: ", newSnaps[indexPath.row].description)
+        }
+        else
+        {
+            performSegue(withIdentifier: "showSnapSegue", sender: allSnaps[indexPath.row])
+            print("\n Trying to send by segue: ", allSnaps[indexPath.row].description)
+        }
     }
     
     
@@ -187,6 +196,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
     }
 
+    
     func filterNewSnaps()
     {
         newSnaps.removeAll()

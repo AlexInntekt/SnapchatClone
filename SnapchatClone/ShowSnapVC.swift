@@ -53,7 +53,12 @@ class ShowSnapVC: UIViewController
     override func viewWillDisappear(_ animated: Bool)
     {
         
-        removeSnapFromEverywhere()
+        
+        Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).child("snaps").child(specificSnap.key).child("isSeen").setValue("true")
+        
+        //removeSnapFromEverywhere()
+        
+        
     }
     
     
