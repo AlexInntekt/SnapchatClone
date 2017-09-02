@@ -18,8 +18,8 @@
 		B25D82DE1F34E3AD00EEE3AD /* SnapsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25D82DD1F34E3AD00EEE3AD /* SnapsVC.swift */; };
 		B25D82E01F34EBF500EEE3AD /* CreateSnapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25D82DF1F34EBF500EEE3AD /* CreateSnapVC.swift */; };
 		B2AED2471F35D85B00E16CB8 /* SelectUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AED2461F35D85B00E16CB8 /* SelectUserVC.swift */; };
-		B2BBF5CD1F371DE8007A0FF7 /* UserClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BBF5CC1F371DE8007A0FF7 /* UserClass.swift */; };
-		B2D382901F38D87F00DBD7B2 /* SnapClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D3828F1F38D87E00DBD7B2 /* SnapClass.swift */; };
+		B2BBF5CD1F371DE8007A0FF7 /* ClassesDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BBF5CC1F371DE8007A0FF7 /* ClassesDeclaration.swift */; };
+		B2D382901F38D87F00DBD7B2 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D3828F1F38D87E00DBD7B2 /* Data.swift */; };
 		B2D382921F3A3C4100DBD7B2 /* ShowSnapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D382911F3A3C4100DBD7B2 /* ShowSnapVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,8 +39,8 @@
 		B25D82DD1F34E3AD00EEE3AD /* SnapsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapsVC.swift; sourceTree = "<group>"; };
 		B25D82DF1F34EBF500EEE3AD /* CreateSnapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSnapVC.swift; sourceTree = "<group>"; };
 		B2AED2461F35D85B00E16CB8 /* SelectUserVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectUserVC.swift; sourceTree = "<group>"; };
-		B2BBF5CC1F371DE8007A0FF7 /* UserClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserClass.swift; sourceTree = "<group>"; };
-		B2D3828F1F38D87E00DBD7B2 /* SnapClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapClass.swift; sourceTree = "<group>"; };
+		B2BBF5CC1F371DE8007A0FF7 /* ClassesDeclaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassesDeclaration.swift; sourceTree = "<group>"; };
+		B2D3828F1F38D87E00DBD7B2 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		B2D382911F3A3C4100DBD7B2 /* ShowSnapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowSnapVC.swift; sourceTree = "<group>"; };
 		D4524FB7A46F82FEB1F8DF77 /* Pods_SnapchatClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapchatClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -116,8 +116,8 @@
 		B2BBF5CF1F371E7A007A0FF7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B2BBF5CC1F371DE8007A0FF7 /* UserClass.swift */,
-				B2D3828F1F38D87E00DBD7B2 /* SnapClass.swift */,
+				B2BBF5CC1F371DE8007A0FF7 /* ClassesDeclaration.swift */,
+				B2D3828F1F38D87E00DBD7B2 /* Data.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -262,9 +262,9 @@
 			files = (
 				B25D82E01F34EBF500EEE3AD /* CreateSnapVC.swift in Sources */,
 				B2AED2471F35D85B00E16CB8 /* SelectUserVC.swift in Sources */,
-				B2D382901F38D87F00DBD7B2 /* SnapClass.swift in Sources */,
+				B2D382901F38D87F00DBD7B2 /* Data.swift in Sources */,
 				B22884AF1F30ED2400CB897D /* SnapchatClone.xcdatamodeld in Sources */,
-				B2BBF5CD1F371DE8007A0FF7 /* UserClass.swift in Sources */,
+				B2BBF5CD1F371DE8007A0FF7 /* ClassesDeclaration.swift in Sources */,
 				B2D382921F3A3C4100DBD7B2 /* ShowSnapVC.swift in Sources */,
 				B22884A91F30ED2400CB897D /* AuthenticationVC.swift in Sources */,
 				B25D82DE1F34E3AD00EEE3AD /* SnapsVC.swift in Sources */,

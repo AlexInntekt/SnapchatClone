@@ -14,8 +14,7 @@ import FirebaseDatabase
 
 class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
-    var allSnaps = [Snap]()
-    var newSnaps = [Snap]()
+
     
     //this variable tells us if the tableView has to be populated with
     //snaps that are 'new' only or all of them:
@@ -29,6 +28,9 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     {
         super.viewDidLoad()
 
+        allSnaps.removeAll()
+        newSnaps.removeAll()
+        
         displayingNewSnapsOnly = true
         
         chooseTypeOfSnaps.setTitle("Show all", for: .normal)
@@ -50,11 +52,11 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             fetchedSnap.imageID = snap.childSnapshot(forPath: "imageID").value as! String
             fetchedSnap.isSeen = snap.childSnapshot(forPath: "isSeen").value as! String
             
-            self.allSnaps.append(fetchedSnap)
+            allSnaps.append(fetchedSnap)
             
             if fetchedSnap.isSeen == "false"
             {
-                self.newSnaps.append(fetchedSnap)
+                newSnaps.append(fetchedSnap)
             }
             
             self.snapsTableView.reloadData()
@@ -64,9 +66,9 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         { (snaphot) in print()
             
             var index = 0
-            for snap in self.allSnaps {
+            for snap in allSnaps {
                 if snap.key == snaphot.key {
-                    self.allSnaps.remove(at: index)
+                    allSnaps.remove(at: index)
                 }
                 index += 1
             }
@@ -79,8 +81,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     override func viewWillAppear(_ animated: Bool)
     {
-        filterNewSnaps()
-        self.snapsTableView.reloadData()
+         self.snapsTableView.reloadData()
     }
 
     
@@ -206,7 +207,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             newSnaps.append(snap)
         }
         
-        print(" #Number of all snaps right away: ", allSnaps.count)
+        print(" #Number of new snaps right away: ", newSnaps.count)
     }
   
 }

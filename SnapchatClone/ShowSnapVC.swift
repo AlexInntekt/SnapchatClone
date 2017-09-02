@@ -56,6 +56,21 @@ class ShowSnapVC: UIViewController
         
         Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).child("snaps").child(specificSnap.key).child("isSeen").setValue("true")
         
+        
+        var index = 0;
+        for snap in newSnaps
+        {
+         
+            if snap.key == specificSnap.key
+            {
+            newSnaps.remove(at: index)
+            print("\nDeleted kkkk")
+            }
+            index += 1
+            
+        }
+ 
+        print(" #Number of new snaps right away: ", newSnaps.count)
         //removeSnapFromEverywhere()
         
         
