@@ -50,13 +50,15 @@ class ShowSnapVC: UIViewController
 
     }
     
+    
+    //when this viewcontroller is dissmised by the user (meaning that he/she saw the snap's picture), the snap will be set as "seen"
     override func viewWillDisappear(_ animated: Bool)
     {
         
-        
+        //the snap stored in the database is set to 'seen':
         Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).child("snaps").child(specificSnap.key).child("isSeen").setValue("true")
         
-        
+        //remove it from the local 'newSnaps' array as well:
         var index = 0;
         for snap in newSnaps
         {
@@ -76,7 +78,8 @@ class ShowSnapVC: UIViewController
         
     }
     
-    
+    //this function is not currently in use
+    //this function removes the specific snap from the dataBase, but it removes it locally as well:
     func removeSnapFromEverywhere()
     {
         print("\n#The user saw the snap. Now it is supposed to get deleted")

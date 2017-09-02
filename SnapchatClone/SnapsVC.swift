@@ -28,16 +28,19 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     {
         super.viewDidLoad()
 
+        //clear arrays for avoiding duplicates in tableView.
         allSnaps.removeAll()
         newSnaps.removeAll()
         
+        //display 'new' by default
         displayingNewSnapsOnly = true
-        
         chooseTypeOfSnaps.setTitle("Show all", for: .normal)
+        
         
         snapsTableView.dataSource = self
         snapsTableView.delegate = self
         
+        //start fetching snaps from database:
         let currentUid = Auth.auth().currentUser?.uid
         
         Database.database().reference().child("Users").child(currentUid!).child("snaps").observe(DataEventType.childAdded, with:
@@ -62,6 +65,8 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             self.snapsTableView.reloadData()
         })
         
+        
+        
         Database.database().reference().child("Users").child(currentUid!).child("snaps").observe(DataEventType.childRemoved, with:
         { (snaphot) in print()
             
@@ -79,12 +84,14 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
     }
     
+    //reload the tableview each time this view controllers pops out:
     override func viewWillAppear(_ animated: Bool)
     {
          self.snapsTableView.reloadData()
     }
 
     
+    //this button switches the type of snaps that is being displayed, the new ones or all of them
     @IBOutlet weak var chooseTypeOfSnaps: UIButton!
     @IBAction func chooseTypeOfSnaps(_ sender: Any)
     {
@@ -110,7 +117,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
     }
     
-
+    //log out current user and get back to the main viewController
     @IBAction func logOutButton(_ sender: Any)
     {
         dismiss(animated: true)
@@ -125,6 +132,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
     }
     
+    //move to the viewcontroller that allows the user to create a new snap:
     @IBAction func addSnap(_ sender: Any)
     {
         performSegue(withIdentifier: "addButtonSegue", sender: nil)
@@ -136,7 +144,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         return true
     }
     
-    
+    //choose the number of cells in the tableview according to the local arrays below:
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         
@@ -151,7 +159,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         
     }
     
-    
+    //define tableview's cell:
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = UITableViewCell()
@@ -172,7 +180,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         return cell
     }
     
-    
+    //when a cell is tapped, the user goes to the viewcontroller that displays information about it, being able to see the picture as well:
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         if /*we are*/ displayingNewSnapsOnly
@@ -187,7 +195,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
     }
     
-    
+    //define segue transfer
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if(segue.identifier=="showSnapSegue")
@@ -197,7 +205,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
     }
 
-    
+    //reload the 'newSnaps' array, make sure it contains only snaps that were not seen by the user:
     func filterNewSnaps()
     {
         newSnaps.removeAll()
