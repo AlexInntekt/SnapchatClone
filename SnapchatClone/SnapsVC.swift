@@ -195,6 +195,42 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
     }
     
+    //this function allows the user to delete a cell in the table view. In the same time, it deletes that object from coredata:
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
+    {
+
+        if editingStyle == .delete
+        {
+            if /*we are*/ displayingNewSnapsOnly
+            {
+                removeSnapFromEverywhere(newSnaps[indexPath.row])
+            }
+            else
+            {
+                removeSnapFromEverywhere(allSnaps[indexPath.row])
+            }
+            
+        }
+    }
+
+    //this function removes the specific snap from the dataBase, but it removes it locally as well:
+    func removeSnapFromEverywhere(_ specificSnap: Snap)
+    {
+        print("\n#The user saw the snap. Now it is supposed to get deleted")
+        
+        
+        let imageUIDthatWeDelete = specificSnap.imageID
+        
+        print("\n\n\n#$% ", specificSnap.imageID ,"\n")
+        
+        Storage.storage().reference().child("images").child("\(imageUIDthatWeDelete)").delete { (error) in
+            print(error)
+        }
+        
+        Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).child("snaps").child(specificSnap.key).removeValue()
+        
+    }
+    
     //define segue transfer
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
