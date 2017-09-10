@@ -57,23 +57,8 @@ class ShowSnapVC: UIViewController
         
         //the snap stored in the database is set to 'seen':
         Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).child("snaps").child(specificSnap.key).child("isSeen").setValue("true")
-        
-        //remove it from the local 'newSnaps' array as well:
-        var index = 0;
-        for snap in newSnaps
-        {
-         
-            if snap.key == specificSnap.key
-            {
-            newSnaps.remove(at: index)
-            print("\nDeleted kkkk")
-            }
-            index += 1
-            
-        }
  
         print(" #Number of new snaps right away: ", newSnaps.count)
-        
         
     }
     

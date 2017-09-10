@@ -68,19 +68,27 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             self.snapsTableView.reloadData()
         })
         
+        
         Database.database().reference().child("Users").child(currentUid!).child("snaps").observe(DataEventType.childChanged, with:
             { (snaphot) in print()
                 
-                var index = 0
-                for snap in allSnaps {
-                    if snap.key != snaphot.childSnapshot(forPath: "isSeen").value as! String {
+             print("\n\n!!!!!!!!!1st area!!!!!!!!!\n\n", allSnaps.count, "\n\n")
+                
+                for snap in allSnaps where snap.key == snaphot.key
+                {
+                    print("\n\n!!!!!!!!!2nd area!!!!!!!!!\n\n")
+                    
+                    if snap.isSeen != snaphot.childSnapshot(forPath: "isSeen").value as! String
+                    {
                         snap.isSeen = snaphot.childSnapshot(forPath: "isSeen").value as! String
                     }
-                    index += 1
+                    
                 }
                 
                 self.updateLists()
+ 
         })
+ 
         
         Database.database().reference().child("Users").child(currentUid!).child("snaps").observe(DataEventType.childRemoved, with:
         { (snaphot) in print()
