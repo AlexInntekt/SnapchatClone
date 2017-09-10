@@ -20,6 +20,8 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     //snaps that are 'new' only or all of them:
     var displayingNewSnapsOnly = Bool()
     
+    //this contains the newSnaps or allSnaps:
+    var currentArraySnaps = [Snap]()
    
     @IBOutlet weak var typeOfSnapsLabel: UILabel!
     @IBOutlet weak var snapsTableView: UITableView!
@@ -62,10 +64,23 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                 newSnaps.append(fetchedSnap)
             }
             
+            self.updateLists()
             self.snapsTableView.reloadData()
         })
         
-        
+        Database.database().reference().child("Users").child(currentUid!).child("snaps").observe(DataEventType.childChanged, with:
+            { (snaphot) in print()
+                
+                var index = 0
+                for snap in allSnaps {
+                    if snap.key != snaphot.childSnapshot(forPath: "isSeen").value as! String {
+                        snap.isSeen = snaphot.childSnapshot(forPath: "isSeen").value as! String
+                    }
+                    index += 1
+                }
+                
+                self.updateLists()
+        })
         
         Database.database().reference().child("Users").child(currentUid!).child("snaps").observe(DataEventType.childRemoved, with:
         { (snaphot) in print()
@@ -74,12 +89,14 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             for snap in allSnaps {
                 if snap.key == snaphot.key {
                     allSnaps.remove(at: index)
+                    
                 }
                 index += 1
             }
-            
-            self.snapsTableView.reloadData()
+
+            self.updateLists()
         })
+ 
         
 
     }
@@ -87,6 +104,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     //reload the tableview each time this view controllers pops out:
     override func viewWillAppear(_ animated: Bool)
     {
+         updateLists()
          self.snapsTableView.reloadData()
     }
 
@@ -102,8 +120,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             displayingNewSnapsOnly = false
             typeOfSnapsLabel.text = "These are all of your snaps:"
             chooseTypeOfSnaps.setTitle("Show new only", for: .normal)
-            
-            self.snapsTableView.reloadData()
+            currentArraySnaps = allSnaps
         }
         else
         {
@@ -112,9 +129,10 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             displayingNewSnapsOnly = true
             typeOfSnapsLabel.text = "Your new snaps recieved:"
             chooseTypeOfSnaps.setTitle("Show all", for: .normal)
-            
-            self.snapsTableView.reloadData()
+            currentArraySnaps = newSnaps
         }
+        
+        self.snapsTableView.reloadData()
     }
     
     //log out current user and get back to the main viewController
@@ -148,14 +166,7 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         
-        if /*are we*/ displayingNewSnapsOnly
-        {
-            return newSnaps.count
-        }
-        else
-        {
-            return allSnaps.count
-        }
+        return currentArraySnaps.count
         
     }
     
@@ -164,18 +175,8 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     {
         let cell = UITableViewCell()
         
-        if /*we are*/ displayingNewSnapsOnly
-        {
-            cell.textLabel?.text = "\(newSnaps[indexPath.row].from): \(newSnaps[indexPath.row].description)"
-            print(" $$$ snap isSeen:", newSnaps[indexPath.row].isSeen)
-
-        }
-        else
-        {
-            cell.textLabel?.text = "\(allSnaps[indexPath.row].from): \(allSnaps[indexPath.row].description)"
-            print(" $$$ snap isSeen:", allSnaps[indexPath.row].isSeen)
-            
-        }
+        cell.textLabel?.text = "\(currentArraySnaps[indexPath.row].from): \(currentArraySnaps[indexPath.row].description)"
+        print(" $$$ snap isSeen:", currentArraySnaps[indexPath.row].isSeen)
         
         return cell
     }
@@ -183,16 +184,9 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     //when a cell is tapped, the user goes to the viewcontroller that displays information about it, being able to see the picture as well:
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        if /*we are*/ displayingNewSnapsOnly
-        {
-            performSegue(withIdentifier: "showSnapSegue", sender: newSnaps[indexPath.row])
-            print("\n Trying to send by segue: ", newSnaps[indexPath.row].description)
-        }
-        else
-        {
-            performSegue(withIdentifier: "showSnapSegue", sender: allSnaps[indexPath.row])
-            print("\n Trying to send by segue: ", allSnaps[indexPath.row].description)
-        }
+            performSegue(withIdentifier: "showSnapSegue", sender: currentArraySnaps[indexPath.row])
+            print("\n Trying to send by segue: ", currentArraySnaps[indexPath.row].description)
+
     }
     
     //this function allows the user to delete a cell in the table view. In the same time, it deletes that object from coredata:
@@ -201,15 +195,8 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
         if editingStyle == .delete
         {
-            if /*we are*/ displayingNewSnapsOnly
-            {
-                removeSnapFromEverywhere(newSnaps[indexPath.row])
-            }
-            else
-            {
-                removeSnapFromEverywhere(allSnaps[indexPath.row])
-            }
-            
+            removeSnapFromEverywhere(currentArraySnaps[indexPath.row])
+            updateLists()
         }
     }
 
@@ -229,6 +216,8 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         
         Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).child("snaps").child(specificSnap.key).removeValue()
         
+        updateLists()
+        self.snapsTableView.reloadData()
     }
     
     //define segue transfer
@@ -239,6 +228,23 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             let nextVC = segue.destination as! ShowSnapVC
             nextVC.specificSnap = sender as! Snap
         }
+    }
+    
+    func updateLists()
+    {
+        filterNewSnaps()
+        
+        if displayingNewSnapsOnly
+        {
+            currentArraySnaps = newSnaps
+        }
+        else
+        {
+            currentArraySnaps = allSnaps
+        }
+        
+        self.snapsTableView.reloadData()
+
     }
 
     //reload the 'newSnaps' array, make sure it contains only snaps that were not seen by the user:
@@ -253,6 +259,8 @@ class SnapsVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         
         print(" #Number of new snaps right away: ", newSnaps.count)
     }
+    
+    
   
 }
 
